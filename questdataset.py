@@ -67,7 +67,7 @@ class QuestDataset(torch.utils.data.Dataset):
     def pick_choices(self, node, budget, text=""):
         old_text = text
         text = text + self.dm + ': ' + self.states[node]['main_text'] + '\n'
-        text_len = len(tokenizer.encode(text))
+        text_len = len(self.tokenizer.encode(text))
         
         if text_len > self.MAX_DOC_LENGTH:
             if self.check(old_text):
