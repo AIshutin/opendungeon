@@ -23,7 +23,8 @@ class QuestDataset(torch.utils.data.Dataset):
     MIN_PHRASES = 4
     BUDGET = 200
     
-    def __init__(self, datadir, tokenizer, player="Player", dm="DM", prefix="It is a fantasy role-play game.\n\n", cache_dir=None):
+    def __init__(self, datadir, tokenizer, player="Player", dm="DM", prefix="It is a fantasy role-play game.\n\n", 
+                       cache_dir=None, tokenize=False):
         if cache_dir is None:
             cache_dir = os.getenv("HF_DATASETS_CACHE", os.path.join(expanduser("~"), ".cache/huggingface/datasets"))
 
@@ -56,6 +57,7 @@ class QuestDataset(torch.utils.data.Dataset):
         self.dm = dm
         self.prefix = prefix
         self.tokenizer = tokenizer
+        self.tokenize = tokenize
     
     def __len__(self):
         return len(self.states)
@@ -106,6 +108,8 @@ class QuestDataset(torch.utils.data.Dataset):
                 i = random.randint(0, len(self) - 1)
                 fails += 1
             else:
+                if self.tokenize:
+                    return self.tokenizer(text)
                 return text
 
 
