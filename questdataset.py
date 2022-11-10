@@ -64,13 +64,13 @@ class QuestDataset(torch.utils.data.Dataset):
     
     def check(self, text):
         phrases = text.count(self.dm) + text.count(self.player)
-        length = len(self.tokenizer.encode(text))
+        length = len(self.tokenizer(self.prefix + text)['input_ids'])
         return self.MIN_PHRASES <= phrases and self.MIN_DOC_LENGTH <= length <= self.MAX_DOC_LENGTH
     
     def pick_choices(self, node, budget, text=""):
         old_text = text
         text = text + self.dm + ': ' + self.states[node]['main_text'] + '\n'
-        text_len = len(self.tokenizer.encode(text))
+        text_len = len(self.tokenizer(self.prefix + text)['input_ids'])
         
         if text_len > self.MAX_DOC_LENGTH:
             if self.check(old_text):
@@ -109,7 +109,15 @@ class QuestDataset(torch.utils.data.Dataset):
                 fails += 1
             else:
                 if self.tokenize:
-                    return self.tokenizer(text)
+                    out = self.tokenizer(text)
+                    print(list(out.keys()))
+                    if len(out["input_ids"]) > self.MAX_DOC_LENGTH:
+                      print(i, text)
+                      print(out)
+                      print("check", self.check(text))
+                    assert(len(out["input_ids"]) <= self.MAX_DOC_LENGTH)
+                    return out
+    
                 return text
 
 
