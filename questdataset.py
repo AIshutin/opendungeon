@@ -110,11 +110,6 @@ class QuestDataset(torch.utils.data.Dataset):
             else:
                 if self.tokenize:
                     out = self.tokenizer(text)
-                    print(list(out.keys()))
-                    if len(out["input_ids"]) > self.MAX_DOC_LENGTH:
-                      print(i, text)
-                      print(out)
-                      print("check", self.check(text))
                     assert(len(out["input_ids"]) <= self.MAX_DOC_LENGTH)
                     return out
     
