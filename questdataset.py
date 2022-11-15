@@ -121,6 +121,39 @@ class QuestDataset(torch.utils.data.Dataset):
                 return text
 
 
+class PresampledDataset(torch.utils.data.Dataset):
+    def __init__(self, items, tokenizer, autopadding=True):
+        encoded = tokenizer(items, padding=autopadding)
+        print(list(encoded.keys()))
+        self.input_ids = encoded['input_ids']
+        self.attention_mask = encoded['attention_mask']
+    
+    def __len__(self):
+        return len(self.input_ids)
+    
+    def __getitem__(self, i):
+        return {"input_ids": self.input_ids[i], "attention_mask": self.attention_mask[i]}
+
+
+def sample_from_dataset(dataset, N):
+    dataset_tokenize = dataset.tokenize
+    dataset.tokenize = False
+    sampled = []
+    while True:
+        for el in dataset:
+            if len(sampled) >= N:
+                break
+            sampled.append(el)
+            if len(sampled) % 100 == 0:
+                print('IT', len(sampled))
+        print(len(sampled))
+        if len(sampled) >= N:
+            break
+    
+    dataset.tokenize = dataset_tokenize
+    return sampled
+
+
 if __name__ == "__main__":
     import transformers
 
