@@ -10,7 +10,7 @@ Side-by-Side of base GPT-J with finetuned on CRD3:
 |                | Like         | Fluency      | No Contradiction | Reaction     |
 |----------------|--------------|--------------|------------------|--------------|
 | basemodel | 46.02\%      | 44.57\%      | 48.10\%          | 44.90\%      |
-| LoRA      | 53.98\%| {55.43\% | 52.90\%     | 55.10\% |
+| LoRA      | 53.98\%| 55.43\% | 52.90\%     | 55.10\% |
 
 Answers are weighted according to probabilities of being correctly labeled provided by Toloka.
 
