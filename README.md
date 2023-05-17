@@ -7,6 +7,8 @@ To train models use our version of CRD3 with ```train_opendungeon.py```. You wil
 
 ### Inference:
 
+Demo: [![Watch the video](https://github.com/AIshutin/opendungeon/blob/master/Screenshot%20from%202023-05-17%2015-20-54.png?raw=true)](https://github.com/AIshutin/opendungeon/blob/master/screen-capture.webm)
+
 - [Colab/Your GPU](https://github.com/AIshutin/opendungeon/blob/master/notebooks/OAID_Inference.ipynb)
 - [HuggingFace Spaces](https://huggingface.co/spaces/tafxle/Bloom_chat)
 - [Petals + Colab/Your GPU](https://github.com/AIshutin/opendungeon/blob/master/notebooks/Petals_OAID_Inference.ipynb)
